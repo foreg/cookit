@@ -1,16 +1,19 @@
 # cookit
 
-A new Flutter project.
+### Стркутура проекта
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- `core` - код, который применяется в нескольких частях (feature) приложения
+- `features` - внутри этой папки лежат фичи приложения (например, авторизация, список рецептов или добавление продуктов) 
+  - `<feature-name>` - внутри этой папки разделение на слои для каждой конкретной фичи
+    - `data` - слой, отвечающий за данные, которые приходят из различных источников
+      - `datasources` - абстрактные классы и их имплементации для получения данных из определенного источника (например, с нашего сервера или с внутреннего хранилища телефона)
+      - `models` - модели данных, которые мы получаем извне приложения
+      - `repositories` - имплементация абстрактоного класса репозитория из слоя `domain`. Репозитории отвечают за преобразование `model` к `entity` и выбор источника данных
+    - `domain` - слой с бизнесс-логикой приложения
+      - `entities` - сущности, с которыми наше приложение будет работать
+      - `repositories` - абстрактные классы для репозиториев
+      - `usecases` - классы, которые содержат в себе бизнес-логику в конретном случае использования (например, войти в аккаунт, сменить пароль или добавить продукт)
+    - `presentation` - слой, отвечающий за визуальную часть приложения 
+      - `bloc` - папка для BLoC'ов (их событий, состояний и главного файла)
+      - `pages` - экраны приложения
+      - `widgets` - виджеты, которые используются на нескольких экранах внутри одной `<feature-name>`
